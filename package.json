@@ -1,0 +1,26 @@
+{
+  "name": "twitter-bot",
+  "version": "1.0.0",
+  "description": "simple twitter bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaumzors/twitter-bot.git"
+  },
+  "author": "Joao Lopes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaumzors/twitter-bot/issues"
+  },
+  "homepage": "https://github.com/jaumzors/twitter-bot#readme",
+  "dependencies": {
+    "async": "^3.1.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.13",
+    "twitter": "^1.7.1"
+  }
+}
