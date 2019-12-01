@@ -1,10 +1,10 @@
 {
-  "name": "twitter-bot",
+  "name": "twitter-bot-api",
   "version": "1.0.0",
-  "description": "simple twitter bot",
+  "description": "simple twitter bot api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,10 +17,8 @@
   },
   "homepage": "https://github.com/jaumzors/twitter-bot#readme",
   "dependencies": {
-    "async": "^3.1.0",
+    "express": "^4.17.1",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "mongoose": "^5.7.13",
-    "twitter": "^1.7.1"
+    "mongoose": "^5.7.13"
   }
 }
