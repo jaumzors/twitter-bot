@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: tweets
+
+  twitter-bot-api:
+    env_file: .env
+    image: jpaulodba:twitter-bot-api
+    build:
+      context: ./api
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    command: npm start
+
+  twitter-bot:
+    env_file: .env
+    image: jpaulodba:twitter-bot
+    build:
+      context: ./bot
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      CONSUMER_KEY: ${CONSUMER_KEY}
+      CONSUMER_SECRET: ${CONSUMER_SECRET}
+      ACCESS_TOKEN_KEY: ${ACCESS_TOKEN_KEY}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      TWITTER_TAGS: ${TWITTER_TAGS}
+      NUMBER_OF_TWEETS: ${NUMBER_OF_TWEETS}
+    command: npm start
+

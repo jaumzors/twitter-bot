@@ -10,7 +10,7 @@ let Tweets = mongoose.model('Tweets', tweetsSchema);
 
 function connect(done) {
   mongoose.connect("mongodb://" + config.db_username + ":" + config.db_password +
-    "@localhost", { useNewUrlParser: true });
+    "@" + config.hostname, { useNewUrlParser: true });
 
   const db = mongoose.connection;
 
@@ -28,7 +28,6 @@ function connect(done) {
 function getTweets(done) {
   /* Gets the latest record */
   Tweets.find({}, ['tweets'], { sort: { _id: -1 }, limit: 1 }, (err, data) => {
-    console.log(data);
     done(null, data[0].tweets);
   });
 }

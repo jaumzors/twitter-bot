@@ -10,7 +10,7 @@ let Tweets = mongoose.model('Tweets', tweetsSchema);
 
 function connect(done) {
   mongoose.connect("mongodb://" + config.db_username + ":" + config.db_password +
-    "@localhost", { useNewUrlParser: true });
+    "@" + config.hostname, { useNewUrlParser: true });
 
   const db = mongoose.connection;
 
