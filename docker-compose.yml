@@ -24,6 +24,11 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
     command: npm start
+    healthcheck:
+      test: curl -f http://localhost:3000/health
+      interval: 1m
+      timeout: 20s
+      retries: 3
 
   twitter-bot:
     env_file: .env
@@ -41,4 +46,9 @@ services:
       TWITTER_TAGS: ${TWITTER_TAGS}
       NUMBER_OF_TWEETS: ${NUMBER_OF_TWEETS}
     command: npm start
+    healthcheck:
+      test: ps -ef | grep node
+      interval: 1m
+      timeout: 20s
+      retries: 3
 

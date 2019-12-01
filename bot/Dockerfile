@@ -1,4 +1,4 @@
-FROM node:10.15.3-stretch-slim
+FROM node:10.15.3
 
 LABEL maintainer="Joao Lopes"
 
