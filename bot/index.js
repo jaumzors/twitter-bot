@@ -4,6 +4,7 @@ const _ = require('lodash');
 const async = require('async');
 const repo = require('./services/repository.js');
 const moment = require('moment');
+const CronJob = require('cron').CronJob;
 
 let t = new Twitter(config);
 
@@ -35,7 +36,7 @@ function fetchTweets(params, callback) {
 }
 
 /* Start the collection process */
-function collectTweets() {
+function collectTweets(done) {
   let tags = tagList.split(',');
 
   if (tagList.length === 0) {
@@ -60,11 +61,10 @@ function collectTweets() {
         /* Try to save the tweets */
         repo.save(tweets, moment.now(), (err, data) => {
           console.log("Tweets saved successfully.");
-          process.exit(0);
+          done();
         });
       } else {
         console.log("Unable to fetch tweets");
-        process.exit(1);
       }
     });
   }
@@ -73,7 +73,13 @@ function collectTweets() {
 /* Waits for a connection before trying to fetch data */
 repo.connect((err) => {
   if (!err) {
-    collectTweets();
+    /* Creates cron job to collect data every n minutes */
+    const interval = process.env.CRON_MINUTES_INTERVAL || 1;
+    const job = new CronJob('0 */' + interval + ' * * * *', () => {
+      collectTweets(()=>{});
+    });
+    console.log("Collect tweets job instantiated");
+    job.start();
   } else {
     console.log(err);
   }
