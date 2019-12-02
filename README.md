@@ -13,6 +13,7 @@ NUMBER_OF_TWEETS
 DB_USERNAME
 DB_PASSWORD
 DB_SERVICE_NAME
+CRON_MINUTES_INTERVAL
 ```
 
 Use ```docker-compose up -d --build``` to start the bot, api and local mongodb.
